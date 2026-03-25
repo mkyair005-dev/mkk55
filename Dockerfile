@@ -1,0 +1,12 @@
+FROM python:3.10-slim
+
+# Install wgcf and wireguard-tools
+RUN apt-get update && apt-get install -y curl wget wireguard-tools
+RUN wget https://github.com/ViRb3/wgcf/releases/download/v2.2.22/wgcf_2.2.22_linux_amd64 -O /usr/local/bin/wgcf
+RUN chmod +x /usr/local/bin/wgcf
+
+WORKDIR /app
+COPY . .
+RUN pip install -r requirements.txt
+
+CMD ["python", "bot.py"]
